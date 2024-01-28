@@ -4,7 +4,14 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const blogObj = req.body;
+    const { title, desc, date, content, username } = req.body;
+    const blogObj = {
+      title,
+      date,
+      author: username,
+      description: desc,
+      content,
+    };
     console.log(blogObj);
     const newBlog = new Blog(blogObj);
     await newBlog.save();

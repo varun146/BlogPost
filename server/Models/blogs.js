@@ -10,8 +10,7 @@ const BlogSchema = new mongoose.Schema({
     contentType: String,
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: String,
   },
   author: {
     type: String,

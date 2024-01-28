@@ -3,14 +3,13 @@ import Blog from "./Blog";
 import { Link } from "react-router-dom";
 import MainFooter from "./MainFooter";
 
-const Main = () => {
+const Main = ({ setState }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const res = await fetch("http://localhost:5000/blogs");
       const data = await res.json();
-      console.log(res);
       setData(data);
     }
     fetchData();
@@ -55,12 +54,16 @@ const Main = () => {
         <h1 className="text-3xl font-noto font-bold">Blogs</h1>
       </div>
 
-      {data.map((blog) => (
-        <Link to="/blogItem">
+      {data.map((blog, idx) => (
+        <Link key={idx} to="/blogItem">
           <Blog
+            key={idx}
+            setState={setState}
             title={blog.title}
             author={blog.author}
+            date={blog.date}
             description={blog.description}
+            content={blog.content}
           />
         </Link>
       ))}

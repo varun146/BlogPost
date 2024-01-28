@@ -3,8 +3,11 @@ import { useAuth } from "../context/AuthContext.jsx";
 import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const { state, dispatch } = useAuth();
+  let { user, dispatch } = useAuth();
   const navigate = useNavigate();
+  if (window.localStorage.getItem("user")) {
+    user = window.localStorage.getItem("user");
+  }
 
   const handleLogout = () => {
     window.localStorage.removeItem("user");
@@ -13,14 +16,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" flex  items-center justify-between py-4 text-gray-700">
+    <nav className="fixed w-[50%] top-0 flex items-center px-2 z-30 rounded-md justify-between bg-[#202733] py-4 text-white">
       <div className="flex items-center">
         <Link to="/">
           <h1 className="font-noto text-3xl font-bold">BlogPost</h1>
         </Link>
       </div>
-      {state.user ? (
-        <ul className="flex space-x-4 text-base font-medium">
+      {user ? (
+        <ul className="flex space-x-4 text-base font-medium text-white">
           <Link to="/account" className="font-noto hover:underline">
             Account
           </Link>

@@ -16,6 +16,7 @@ const useLogin = () => {
     });
 
     const json = await response.json();
+    console.log(json);
 
     if (!response.ok) {
       setIsLoading(false);
@@ -23,6 +24,7 @@ const useLogin = () => {
     } else {
       // save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
+      localStorage.setItem("username", json.username);
       dispatch({ type: "LOGIN", payload: json });
       setError(json);
       setIsLoading(false);

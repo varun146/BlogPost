@@ -17,7 +17,9 @@ router.post("/", async (req, res) => {
       const token = jwt.sign({ name: username }, process.env.SECRET_KEY, {
         expiresIn: "2h",
       });
-      return res.status(200).json({ token: token, message: "success" });
+      return res
+        .status(200)
+        .json({ token: token, message: "success", username });
     } else {
       return res.status(401).json({ error: "in1alid" });
     }
