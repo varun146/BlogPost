@@ -6,8 +6,10 @@ const BlogSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+  },
+  tag: {
+    type: String,
   },
   date: {
     type: String,

@@ -12,21 +12,19 @@ import { useState } from "react";
 function App() {
   const [state, setState] = useState("");
   return (
-    <div className="w-full  min-h-screen overflow-y-auto bg-gradient-to-tr from-gray-700 via-gray-400 to-gray-200">
-      <div className="w-[50%] mx-auto">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Main setState={setState} />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/blogItem" element={<BlogItem state={state} />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/account" element={<Account />}>
-            <Route path="/account/blogs" element={<BlogsList />}></Route>
-            <Route path="/account/write-blog" element={<PostBlog />}></Route>
-          </Route>
-        </Routes>
-      </div>
+    <div className="w-full ">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Main setState={setState} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blogItem" element={<BlogItem state={state} />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/account" element={<Account />}>
+          <Route path="/account/blogs" element={<BlogsList />}></Route>
+          <Route path="/account/write-blog" element={<PostBlog />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
