@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import About from "./components/About";
@@ -8,12 +7,12 @@ import Login from "./pages/Login";
 import Account from "./pages/Account";
 import BlogsList from "./pages/BlogsList";
 import PostBlog from "./pages/PostBlog";
+import { BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
 function App() {
   const [state, setState] = useState("");
   return (
-    <div className="w-full ">
-      <Navbar />
+    <Router>
       <Routes>
         <Route path="/" element={<Main setState={setState} />} />
         <Route path="/about" element={<About />} />
@@ -25,7 +24,7 @@ function App() {
           <Route path="/account/write-blog" element={<PostBlog />}></Route>
         </Route>
       </Routes>
-    </div>
+    </Router>
   );
 }
 

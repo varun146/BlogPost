@@ -31,20 +31,20 @@ app.use("/login", require("./auth/login"));
 app.use("/create-blog", require("./api/create-blog"));
 app.get("/blogs", async (req, res) => {
   const blogs = await Blog.find();
-  const signedUrlPromises = blogs.map(async (blog) => {
-    const getObjectParams = {
-      Bucket: bucketName,
-      Key: blog.image,
-    };
-
-    const command = new GetObjectCommand(getObjectParams);
-    await getSignedUrl(s3, command, { expiresIn: 3600 });
-  });
-
-  const signedUrls = await Promise.all(signedUrlPromises);
-  blogs.forEach((blog, idx) => {
-    blog.imageUrl = signedUrls[idx];
-  });
+  // const signedUrlPromises = blogs.map(async (blog) => {
+  //   const getObjectParams = {
+  //     Bucket: bucketName,
+  //     Key: blog.image,
+  //   };
+  //
+  //   const command = new GetObjectCommand(getObjectParams);
+  //   await getSignedUrl(s3, command, { expiresIn: 3600 });
+  // });
+  //
+  // const signedUrls = await Promise.all(signedUrlPromises);
+  // blogs.forEach((blog, idx) => {
+  //   blog.imageUrl = signedUrls[idx];
+  // });
   res.json(blogs);
 });
 

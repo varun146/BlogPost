@@ -2,24 +2,31 @@ const express = require("express");
 const User = require("../Models/users");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
-    const { name, email, password } = req.body;
+    console.log(process.env.SECRET_KEY);
+    const { username, password } = req.body;
     const saltRounds = 10;
     const hashedPass = await bcrypt.hash(password, saltRounds);
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
     console.log(existingUser);
     if (existingUser) {
-      return res.json({ message: "User already exits!" });
+      return res.status(401).json({ message: "User already exits!" });
     }
-    const newUser = new User({ username: name, email, password: hashedPass });
+    const newUser = new User({ username, password: hashedPass });
     await newUser.save();
+    const token = jwt.sign({ name: username }, process.env.SECRET_KEY, {
+      expiresIn: "2h",
+    });
 
-    res.status(201).json({ message: "User registered successfully" });
+    res
+      .status(201)
+      .json({ message: "User registered successfully", token, username });
   } catch (error) {
-    res.json({ message: error.message });
+    res.status(401).json({ message: error.message });
   }
 });
 

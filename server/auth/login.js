@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
         .status(200)
         .json({ token: token, message: "success", username });
     } else {
-      return res.status(401).json({ error: "in1alid" });
+      return res.status(401).json({ error: "invalid" });
     }
   } catch (error) {
     console.log(error);

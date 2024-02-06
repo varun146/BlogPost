@@ -2,107 +2,91 @@ import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { FaUser } from "react-icons/fa";
+import { IoLockClosedSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPass] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();
 
   const url = "http://localhost:5000/register";
   console.log(user);
   const payload = {
-    name,
-    email,
+    username,
     password,
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-      const response = await res.json();
-      if (response.message.includes("successfully")) {
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
-        toast.success("Registeration Successful");
-      }
-    } catch (error) {
-      toast.error(error.message);
+    const response = await res.json();
+    if (res.ok) {
+      toast.success("Registeration Successful");
+      setTimeout(() => {
+        navigate("/account");
+      }, 1500);
+      window.localStorage.setItem("user", response);
+    } else {
+      toast.error("Registeration Failed");
+      navigate("/signup");
     }
   };
 
   return (
-    <div className="bg-cover bg-no-repeat min-h-screen  flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-gray-100 p-8 shadow-md rounded-md">
-        <div>
-          <h2 className="mt-6 font-noto text-center text-3xl font-extrabold text-gray-900">
-            Sign up for an account
-          </h2>
-        </div>
-        <Toaster position="bottom-center" />
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="name" className="font-noto sr-only">
-                Name
-              </label>
+    <div
+      style={{
+        backgroundImage:
+          "url('https://img.freepik.com/free-vector/elegant-white-background-with-shiny-lines_1017-17580.jpg?w=1380&t=st=1707112394~exp=1707112994~hmac=e38bab29127d3e49839d7c2b6b0045cd65a7fc8ab0681f7fd36463ee98568894')",
+      }}
+      className="bg-cover bg-no-repeat min-h-screen  flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="flex justify-center items-center  w-full h-screen ">
+        <div className="flex flex-col  gap-8 px-4  py-12 w-[500px] h-[60%] ">
+          <h1 className="text-4xl font-inter mb-10 text-center font-bold">
+            Sign up
+          </h1>
+          <div className="h-[50%]  flex flex-col gap-12 ">
+            <div className="flex gap-4 items-center px-2">
+              <FaUser />
               <input
-                type="text"
-                required
-                className="appearance-none rounded-md relative block w-full font-noto  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                g
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                type="text "
+                onChange={(e) => setUsername(e.target.value)}
+                className="focus:outline-none py-4 border-b-2 border-black bg-transparent w-full font-inter px-2 "
+                placeholder="Username"
               />
             </div>
-            <div>
-              <label htmlFor="email-address" className="font-noto sr-only">
-                Email address
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                className="appearance-none rounded-md relative font-noto block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mt-3"
-                placeholder="Email address"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="font-noto sr-only">
-                Password
-              </label>
+            <div className="flex gap-4 items-center px-2">
+              <IoLockClosedSharp size={20} />
               <input
                 type="password"
-                required
-                value={password}
-                className="appearance-none rounded-md relative font-noto  block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mt-3"
+                onChange={(e) => setPassword(e.target.value)}
+                className="focus:outline-none py-4 border-b-2 bg-transparent border-black w-full font-inter px-2 "
                 placeholder="Password"
-                onChange={(e) => setPass(e.target.value)}
               />
             </div>
+            <h2 className="text-sm font-inter text-center">
+              Already have an account? <Link to="/login">Log In</Link>
+            </h2>
           </div>
-
-          <div>
+          <div className="w-full flex justify-center items-center">
             <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 font-noto border border-transparent text-sm font-medium rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
+              onClick={handleSubmit}
+              className="font-inter bg-black px-6 py-3 rounded-full text-white font-bold"
             >
-              Sign Up
+              Submit
             </button>
           </div>
-        </form>
+          <Toaster position="bottom-center" />
+        </div>
       </div>
     </div>
   );

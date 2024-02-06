@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Blog from "./Blog";
 import { Link } from "react-router-dom";
 import MainFooter from "./MainFooter";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Main = ({ setState }) => {
   const [data, setData] = useState([]);
@@ -10,6 +12,7 @@ const Main = ({ setState }) => {
     async function fetchData() {
       const res = await fetch("http://localhost:5000/blogs");
       const data = await res.json();
+      console.log(data);
       setData(data);
     }
     fetchData();
@@ -17,11 +20,12 @@ const Main = ({ setState }) => {
 
   return (
     <div className="w-full h-[60%] ">
+      <Navbar />
       <section
         className="h-[85%] w-full mx-auto"
         style={{
           backgroundImage:
-            "url('https://img.freepik.com/free-photo/white-background_23-2147730801.jpg?w=1380&t=st=1706898790~exp=1706899390~hmac=1a13b1a4089304538744ca9c45931288789eb048310bbabcf1618f0ca5f38614')",
+            "url('https://images.unsplash.com/photo-1514454529242-9e4677563e7b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
         }}
       >
         <div className="flex flex-col gap-4 w-[65%] mx-auto py-12">
@@ -101,39 +105,39 @@ const Main = ({ setState }) => {
           Select a category to see more related content
         </h2>
         <div className="w-[60%] mt-16 flex justify-evenly  mx-auto ">
-          <button className="px-6 py-3 font-inter font-bold bg-gray-300 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
+          <button className="px-6 py-3 font-inter border-2 bg-white font-bold  rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
             All
           </button>
-          <button className="px-6 py-3 font-inter font-bold bg-gray-300 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
+          <button className="px-6 py-3 font-inter border-2 font-bold  rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
             Technology
           </button>
-          <button className="px-6 py-3 font-inter font-bold bg-gray-300 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
+          <button className="px-6 py-3 font-inter border-2 font-bold  rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
             Lifestyle
           </button>
-          <button className="px-6 py-3 font-inter font-bold bg-gray-300 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
+          <button className="px-6 py-3 font-inter font-bold border-2 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
             Health
           </button>
-          <button className="px-6 py-3 font-inter font-bold bg-gray-300 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
+          <button className="px-6 py-3 font-inter font-bold border-2 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
             Travel
           </button>
-          <button className="px-6 py-3 font-inter font-bold bg-gray-300 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
+          <button className="px-6 py-3 font-inter font-bold border-2 rounded-full text-black hover:bg-black  hover:text-white ease-in-out duration-300">
             Culture
           </button>
         </div>
-        <div className="mt-24 grid grid-cols-3 w-[60%] mx-auto">
+        <div className="mt-24 grid grid-cols-3 gap-4 max-w-[70%] mx-auto">
           {data.map((blog, idx) => (
             <Blog
               key={idx}
               title={blog.title}
-              desc={blog.desc}
               tag={blog.title}
               img={blog.image}
               author={blog.author}
-              date={blog.date}
             />
           ))}
         </div>
       </section>
+      <section className="h-screen w-full"></section>
+      <Footer />
     </div>
   );
 };

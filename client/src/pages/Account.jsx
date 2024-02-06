@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../components/Navbar";
+import { FaPencilAlt } from "react-icons/fa";
+import Editor from "../components/Editor";
+import Profile from "../components/Profile";
 
 const Account = () => {
   const [content, setContent] = useState("");
+  const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [date, setDate] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
   const [file, setFile] = useState("");
+  const [editor, setEditor] = useState(false);
+  const [profile, setProfile] = useState(false);
   const navigate = useNavigate();
 
   const formData = new FormData();
@@ -32,67 +36,44 @@ const Account = () => {
     });
     navigate("/");
   };
+  const handleClick = (e) => {
+    e.preventDefault();
+    setEditor(!editor);
+  };
+  const handleProfile = (e) => {
+    e.preventDefault();
+    setProfile(!profile);
+  };
   return (
-    <div className="w-full flex justify-center gap-4 items-center h-screen rounded-md ">
-      <div className="w-full h-[90%] relative shadow-xl shadow-black rounded-md bg-[#202733] ">
-        <div className="flex flex-col gap-4 p-4 mt-12">
-          <div className="w-full   flex justify-between">
-            <input
-              placeholder="Title"
-              className="w-full  p-2 bg-white font-noto rounded-md"
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div className="w-full flex justify-between">
-            <input
-              placeholder="Description"
-              className="w-full p-2 bg-white font-noto rounded-md"
-              onChange={(e) => setDesc(e.target.value)}
-            />
-          </div>
-          <div className="w-full flex justify-between">
-            <input
-              placeholder="Author"
-              className="w-full p-2 bg-white font-noto rounded-md"
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-          </div>
-
-          <div className="w-full flex justify-between">
-            <input
-              placeholder="Category"
-              className="w-full p-2 bg-white font-noto rounded-md"
-              onChange={(e) => setCategory(e.target.value)}
-            />
-          </div>
-          <div className="w-full flex justify-between">
-            <input
-              placeholder="Date dd-mm-yyyy"
-              className="w-full font-noto text-black p-2 bg-white  rounded-md"
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </div>
-          <div className="w-full flex justify-between">
-            <input
-              type="file"
-              placeholder="Date dd-mm-yyyy"
-              className="w-full font-noto text-black p-2 bg-white  rounded-md"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-          </div>
+    <div
+      className="w-full h-screen overflow-y-auto bg-no-repeat  bg-cover"
+      style={{
+        backgroundImage:
+          "url('https://img.freepik.com/free-vector/white-background-gradient-modern-abstract-design-wave_343694-2337.jpg?w=1380&t=st=1707156465~exp=1707157065~hmac=e5e53aadbe348fd96425a2280b9b6b848c9ddaf2e005d63caf91b0ed65262010')",
+      }}
+    >
+      <Navbar />
+      <div className="flex flex-col w-[300px] ml-10 h-screen justify-center pl-24 gap-8 border-2 border-blue-700">
+        <div className="flex items-center gap-2">
+          <img
+            onClick={handleProfile}
+            width={50}
+            height={50}
+            className="rounded-full"
+            src="src/assets/cat.png"
+          />
+          <h1 className="font-inter text-xl ">Account</h1>
         </div>
-        <div className="p-4 h-[80%] w-full ">
-          <textarea
-            onChange={(e) => setContent(e.target.value)}
-            className="w-full h-[80%] bg-gray-700 text-white font-noto p-3 focus:outline-none"
-          ></textarea>
+        <div className="flex gap-2 items-center cursor-pointer  ">
+          <FaPencilAlt onClick={handleClick} size={50} />
+          <h1 className="font-inter text-xl">Write a blog</h1>
         </div>
-        <button
-          onClick={(e) => handleSubmit(e)}
-          className="absolute bottom-2 left-4  px-4 py-2 rounded-full bg-gray-300 text-black font-noto "
-        >
-          Post
-        </button>
+      </div>
+      <div className="flex items-center fixed justify-evenly gap-8 w-[90%] border-2 border-red-700 mt-24 mx-auto">
+        <div className="flex border-2 border-green-700 w-[70%]">
+          {editor ? <Editor /> : null}
+          {profile ? <Profile /> : null}
+        </div>
       </div>
     </div>
   );

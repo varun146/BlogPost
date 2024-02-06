@@ -2,10 +2,12 @@ import { Toaster, toast } from "react-hot-toast";
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin.js";
+import { FaUser } from "react-icons/fa";
+import { IoLockClosedSharp } from "react-icons/io5";
 
 const Login = () => {
   const [username, setName] = useState("");
-  const [password, setPass] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login, isLoading, error } = useLogin();
 
@@ -17,50 +19,51 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen border-2 border-red-900  flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-gray-100 p-8 shadow-md border-2 border-red-900 rounded-md">
-        <div>
-          <h2 className="mt-6 font-noto text-center text-3xl font-extrabold text-gray-900">
-            Sign In{" "}
-          </h2>
-        </div>
-        <Toaster position="bottom-center" />
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+    <div
+      style={{
+        backgroundImage:
+          "url('https://img.freepik.com/free-vector/elegant-white-background-with-shiny-lines_1017-17580.jpg?w=1380&t=st=1707112394~exp=1707112994~hmac=e38bab29127d3e49839d7c2b6b0045cd65a7fc8ab0681f7fd36463ee98568894')",
+      }}
+      className="bg-cover bg-no-repeat min-h-screen  flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div className="flex justify-center items-center  w-full h-screen ">
+        <div className="flex flex-col  gap-8 px-4  py-12 w-[500px] h-[60%] ">
+          <h1 className="text-4xl font-inter mb-10 text-center font-bold">
+            Login
+          </h1>
+          <div className="h-[50%]  flex flex-col gap-12 ">
+            <div className="flex gap-4 items-center px-2">
+              <FaUser />
               <input
-                type="text"
-                required
-                className="appearance-none rounded-md relative block w-full font-noto  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Username"
+                type="text "
                 onChange={(e) => setName(e.target.value)}
+                className="focus:outline-none py-4 border-b-2 border-black bg-transparent w-full font-inter px-2 "
+                placeholder="Username"
               />
             </div>
-            <div>
+            <div className="flex gap-4 items-center px-2">
+              <IoLockClosedSharp size={20} />
               <input
                 type="password"
-                required
-                className="appearance-none rounded-md relative font-noto  block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mt-3"
+                onChange={(e) => setPassword(e.target.value)}
+                className="focus:outline-none py-4 border-b-2 bg-transparent border-black w-full font-inter px-2 "
                 placeholder="Password"
-                onChange={(e) => setPass(e.target.value)}
               />
             </div>
+            <h2 className="text-sm font-inter text-center">
+              Don't have an account? <Link to="/signup">Register</Link>
+            </h2>
           </div>
-
-          <div>
+          <div className="w-full flex justify-center items-center">
             <button
-              disabled={isLoading}
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 font-noto border border-transparent text-sm font-medium rounded-md text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
+              onClick={handleSubmit}
+              className="font-inter bg-black px-6 py-3 rounded-full text-white font-bold"
             >
-              Sign In
+              Submit
             </button>
-            <p className="mt-5 text-gray-700 text-sm font-noto font-bold">
-              Don't have an account, <Link to="/signup">Create One</Link>
-            </p>
           </div>
-        </form>
+          <Toaster position="bottom-center" />
+        </div>
       </div>
     </div>
   );

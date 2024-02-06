@@ -17,33 +17,32 @@ const randomName = (bytes = 32) => crypto.randomBytes(32).toString("hex");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.post("/", upload.single("blogImage"), async (req, res) => {
+router.post("/", async (req, res) => {
   console.log("req file", req.file);
   console.log("req body", req.body);
-  const s3 = new S3Client({
-    credentials: {
-      accessKeyId: accessKey,
-      secretAccessKey: secretAccessKey,
-    },
-    region: bucketRegion,
-  });
-
-  const imageName = randomName();
-  const params = {
-    Bucker: bucketName,
-    Key: imageName,
-    Body: req.file.buffer,
-    ContentType: req.file.mimetype,
-  };
-
-  const command = new PutObjectCommand(params);
-  await s3.send(command);
+  // const s3 = new S3Client({
+  //   credentials: {
+  //     accessKeyId: accessKey,
+  //     secretAccessKey: secretAccessKey,
+  //   },
+  //   region: bucketRegion,
+  // });
+  //
+  // const imageName = randomName();
+  // const params = {
+  //   Bucker: bucketName,
+  //   Key: imageName,
+  //   Body: req.file.buffer,
+  //   ContentType: req.file.mimetype,
+  // };
+  //
+  // const command = new PutObjectCommand(params);
+  // await s3.send(command);
 
   const { title, desc, tag, date, content, username } = req.body;
   const blogObj = {
     title,
     date,
-    image: imageName,
     tag,
     author: username,
     description: desc,

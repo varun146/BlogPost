@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import React, { useEffect, useState } from "react";
+import { IoLogInOutline } from "react-icons/io5";
 
 const Navbar = () => {
   let { user, dispatch } = useAuth();
@@ -38,19 +39,13 @@ const Navbar = () => {
           </Link>
         </div>
         {user ? (
-          <ul className="flex  space-x-4 text-base font-medium text-[#202733]">
+          <ul className="flex items-center space-x-4 text-base font-medium text-[#202733]">
             <Link to="/account" className="font-inter hover:underline">
-              Account
+              <img width={35} height={35} src="src/assets/cat.png" />
             </Link>
-            <Link to="/blogs" className="font-inter hover:underline">
-              My blogs
-            </Link>
-            <Link
-              to="/"
-              onClick={handleLogout}
-              className="font-noto hover:underline"
-            >
-              Logout
+            <Link to="/blogs" className="font-inter hover:underline"></Link>
+            <Link to="/" onClick={handleLogout} className="font-inter">
+              <IoLogInOutline size={35} />
             </Link>
           </ul>
         ) : (
