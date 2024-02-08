@@ -27,7 +27,7 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
-        <div className="font-inter  font-bold">
+        <div className="font-inter text-md ">
           <Link className="mx-2" to="/">
             Home
           </Link>
@@ -36,6 +36,9 @@ const Navbar = () => {
           </Link>
           <Link className="mx-2" to="/">
             Categories
+          </Link>
+          <Link className="mx-2" to="/about">
+            About
           </Link>
         </div>
         {user ? (

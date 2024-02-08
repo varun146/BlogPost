@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Main from "./components/Main";
 import About from "./components/About";
 import BlogItem from "./components/BlogItem";
@@ -11,15 +11,30 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
 function App() {
   const [state, setState] = useState("");
+  const [token, setToken] = useState(() => window.localStorage.getItem("user"));
+  console.log(token);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Main setState={setState} />} />
         <Route path="/about" element={<About />} />
         <Route path="/blogItem" element={<BlogItem state={state} />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/account" element={<Account />}>
+        <Route
+          path="/signup"
+          element={
+            !token ? <Signup setToken={setToken} /> : <Navigate to="/account" />
+          }
+        ></Route>
+        <Route
+          path="/login"
+          element={
+            !token ? <Login setToken={setToken} /> : <Navigate to="/account" />
+          }
+        ></Route>
+        <Route
+          path="/account"
+          element={token ? <Account /> : <Navigate to="/login" />}
+        >
           <Route path="/account/blogs" element={<BlogsList />}></Route>
           <Route path="/account/write-blog" element={<PostBlog />}></Route>
         </Route>

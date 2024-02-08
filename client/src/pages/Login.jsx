@@ -4,17 +4,20 @@ import { useNavigate, Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin.js";
 import { FaUser } from "react-icons/fa";
 import { IoLockClosedSharp } from "react-icons/io5";
+import { useAuth } from "../context/AuthContext.jsx";
 
-const Login = () => {
+const Login = ({ setToken }) => {
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, isLoading, error } = useLogin();
+  const { login, isLoading, error } = useLogin({ setToken });
+  let { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(username, password);
     toast.success("Logged in successfully");
+    console.log("I am in login compo ", user);
     navigate("/account");
   };
 

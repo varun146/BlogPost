@@ -14,6 +14,16 @@ const Editor = () => {
             className="border-b-2 bg-transparent font-inter text-md font-bold border-black py-2 px-2  focus:outline-none mb-18 w-full "
             placeholder="Title"
           />
+          <div>
+            <input
+              type="file"
+              className="mt-4 font-inter"
+              placeholder="Choose a picture for your blog"
+            />
+            <p className="mt-4 font-inter text-sm text-gray-600">
+              (Picture for the blog)
+            </p>
+          </div>
           <ReactQuill
             className="bg-white mt-12 w-full"
             theme="snow"

@@ -65,7 +65,7 @@ const Main = ({ setState }) => {
                     Technology
                   </span>
                 </div>
-                <h1 className="text-md font-inter font-bold mb-6">
+                <h1 className="text-xl font-inter font-bold mb-6">
                   14 Innovative Architectural Designs to Create a Vast Interior
                   Space
                 </h1>
@@ -124,7 +124,7 @@ const Main = ({ setState }) => {
             Culture
           </button>
         </div>
-        <div className="mt-24 grid grid-cols-3 gap-4 max-w-[70%] mx-auto">
+        <div className="mt-18 grid grid-cols-3  max-w-[60%] mx-auto">
           {data.map((blog, idx) => (
             <Blog
               key={idx}

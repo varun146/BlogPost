@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { IoLockClosedSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -31,10 +31,10 @@ const Signup = () => {
     const response = await res.json();
     if (res.ok) {
       toast.success("Registeration Successful");
+      setToken(window.localStorage.setItem("user", response));
       setTimeout(() => {
         navigate("/account");
-      }, 1500);
-      window.localStorage.setItem("user", response);
+      }, 1000);
     } else {
       toast.error("Registeration Failed");
       navigate("/signup");
