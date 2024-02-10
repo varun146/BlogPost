@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const useLogin = ({ setToken }) => {
@@ -25,7 +25,6 @@ const useLogin = ({ setToken }) => {
       // save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
       setToken(window.localStorage.getItem("user"));
-      localStorage.setItem("username", json.username);
       dispatch({ type: "LOGIN", payload: json });
       setError(json);
       setIsLoading(false);

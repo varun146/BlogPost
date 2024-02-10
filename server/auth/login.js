@@ -9,6 +9,7 @@ router.post("/", async (req, res) => {
     const { username, password } = req.body;
     console.log(username, password);
     const user = await User.findOne({ username });
+    const userId = user._id;
     console.log(user);
     console.log(`this is requested password: ${password}`);
     console.log(`this is the stored password: ${user.password}`);
@@ -19,7 +20,7 @@ router.post("/", async (req, res) => {
       });
       return res
         .status(200)
-        .json({ token: token, message: "success", username });
+        .json({ token: token, message: "success", userId, username });
     } else {
       return res.status(401).json({ error: "invalid" });
     }

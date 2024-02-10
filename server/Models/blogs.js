@@ -8,6 +8,9 @@ const BlogSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  imageUrl: {
+    type: String,
+  },
   tag: {
     type: String,
   },
@@ -17,9 +20,6 @@ const BlogSchema = new mongoose.Schema({
   author: {
     type: String,
     ref: "User",
-  },
-  description: {
-    type: String,
   },
   content: {
     type: String,

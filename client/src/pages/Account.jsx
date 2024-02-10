@@ -1,41 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Navbar from "../components/Navbar";
-import { FaPencilAlt } from "react-icons/fa";
 import Editor from "../components/Editor";
 import Profile from "../components/Profile";
 
 const Account = () => {
   const [content, setContent] = useState("");
-  const [value, setValue] = useState("");
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [date, setDate] = useState("");
-  const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("");
-  const [file, setFile] = useState("");
   const [editor, setEditor] = useState(false);
   const [profile, setProfile] = useState(true);
-  const navigate = useNavigate();
 
-  const formData = new FormData();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    formData.append("blogImage", file);
-    formData.append("title", title);
-    formData.append("author", author);
-    formData.append("category", category);
-    formData.append("date", date);
-    formData.append("description", desc);
-    formData.append("content", content);
-
-    await axios.post("http://localhost:5000/create-blog", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    navigate("/");
-  };
   const handleClick = (e) => {
     e.preventDefault();
     console.log("editor");
@@ -60,7 +33,10 @@ const Account = () => {
       <div className="flex gap-2  w-[65%] mx-auto">
         <div className="relative flex flex-col w-[20%]  h-screen  pl-24 gap-8">
           <div className="absolute top-10 left-2">
-            <div className="flex items-center mb-6 cursor-pointer hover:scale-110 ease-in-out duration-300 gap-2 px-6 bg-blue-600 text-white py-3 rounded-full shadow-md shadow-blue-500 ">
+            <div
+              onClick={handleProfile}
+              className="flex items-center mb-6 cursor-pointer hover:scale-110 ease-in-out duration-300 gap-2 px-6 bg-blue-600 text-white py-3 rounded-full shadow-md shadow-blue-500 "
+            >
               <h1 className="font-inter text-xl ">My Blogs</h1>
             </div>
             <p

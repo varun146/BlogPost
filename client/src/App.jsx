@@ -18,7 +18,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Main setState={setState} />} />
         <Route path="/about" element={<About />} />
-        <Route path="/blogItem" element={<BlogItem state={state} />}></Route>
+        <Route
+          path="/blogItem/:id"
+          element={<BlogItem state={state} />}
+        ></Route>
         <Route
           path="/signup"
           element={
@@ -36,7 +39,6 @@ function App() {
           element={token ? <Account /> : <Navigate to="/login" />}
         >
           <Route path="/account/blogs" element={<BlogsList />}></Route>
-          <Route path="/account/write-blog" element={<PostBlog />}></Route>
         </Route>
       </Routes>
     </Router>

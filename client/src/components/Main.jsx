@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Blog from "./Blog";
 import { Link } from "react-router-dom";
-import MainFooter from "./MainFooter";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -17,6 +16,10 @@ const Main = ({ setState }) => {
     }
     fetchData();
   }, []);
+
+  const randIdx = () => {
+    return Math.floor(Math.random() * data.length);
+  };
 
   return (
     <div className="w-full h-[60%] ">
@@ -97,7 +100,7 @@ const Main = ({ setState }) => {
           </div>
         </div>
       </section>
-      <section className="h-screen w-full  mt-10">
+      <section className=" w-full mt-10">
         <h1 className="text-4xl font-inter font-bold text-center ">
           Browse by category
         </h1>
@@ -124,19 +127,83 @@ const Main = ({ setState }) => {
             Culture
           </button>
         </div>
-        <div className="mt-18 grid grid-cols-3  max-w-[60%] mx-auto">
+        <div className="mt-20 grid grid-cols-3 max-w-[60%] mx-auto">
           {data.map((blog, idx) => (
-            <Blog
-              key={idx}
-              title={blog.title}
-              tag={blog.title}
-              img={blog.image}
-              author={blog.author}
-            />
+            <Link to={`blogItem/${blog._id}`} key={idx}>
+              <Blog
+                key={idx}
+                title={blog.title}
+                tag={blog.tag}
+                date={blog.date}
+                img={blog.imageUrl}
+                author={blog.author}
+              />
+            </Link>
           ))}
         </div>
+        <div className="flex justify-center my-10">
+          <button className="px-4 py-2 border border-black rounded-md text-black font-inter text-md hover:bg-black hover:text-white ease-in duration-150">
+            Browse all Posts
+          </button>
+        </div>
       </section>
-      <section className="h-screen w-full"></section>
+      <section className="mt-20  w-[65%] mx-auto ">
+        <h1 className="text-2xl font-inter font-bold">Top Authors</h1>
+        <hr className="my-4 " />
+        <div className="flex gap-6 px-4 w-full ">
+          <div className="flex gap-2 rounded-xl bg-gray-100 py-4 px-2 my-6">
+            <img
+              width={130}
+              height={120}
+              className="rounded-full"
+              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            />
+            <div className="p-4">
+              <h1 className="font-inter font-semibold">Adrio Devid</h1>
+              <h1 className="font-inter text-sm text-gray-600">
+                Director of operations
+              </h1>
+            </div>
+          </div>
+          <div className="flex gap-2 rounded-xl bg-gray-100 py-4 px-2 my-6">
+            <img
+              width={130}
+              height={120}
+              className="rounded-full"
+              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            />
+            <div className="p-4">
+              <h1 className="font-inter font-semibold">Adrio Devid</h1>
+              <h1 className="font-inter test-sm text-gray-600">
+                Director of operations
+              </h1>
+            </div>
+          </div>
+          <div className="flex gap-2 rounded-xl bg-gray-100 py-4 px-2 my-6">
+            <img
+              width={130}
+              height={120}
+              className="rounded-full"
+              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            />
+            <div className="p-4">
+              <h1 className="font-inter font-semibold">Adrio Devid</h1>
+              <h1 className="font-inter text-sm text-gray-600">
+                Director of operations
+              </h1>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        className="w-[60%] my-6 flex justify-center"
+        style={{
+          backgroundImage:
+            "url('https://freesvg.org/img/Prismatic-Isometric-Cube-Wireframe-Pattern-No-Background.png')",
+        }}
+      >
+        <div className="py-10 px-8">Newsletter</div>
+      </section>
       <Footer />
     </div>
   );

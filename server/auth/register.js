@@ -18,13 +18,17 @@ router.post("/", async (req, res) => {
     }
     const newUser = new User({ username, password: hashedPass });
     await newUser.save();
+    const userId = newUser._id;
     const token = jwt.sign({ name: username }, process.env.SECRET_KEY, {
       expiresIn: "2h",
     });
 
-    res
-      .status(201)
-      .json({ message: "User registered successfully", token, username });
+    res.status(201).json({
+      message: "User registered successfully",
+      token,
+      username,
+      userId,
+    });
   } catch (error) {
     res.status(401).json({ message: error.message });
   }
