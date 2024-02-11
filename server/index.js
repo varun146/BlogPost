@@ -27,6 +27,24 @@ const PORT = 5000;
 const dbURL =
   "mongodb+srv://root:Birdys195@cluster0.fesohko.mongodb.net/?retryWrites=true&w=majority";
 
+///jk
+//
+
+function selectThreeUniqueObjects(myArray) {
+  // Make a copy of the array to avoid modifying the original
+  const shuffledArray = [...myArray];
+
+  // Shuffle the array randomly
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+
+  // Select the first three elements from the shuffled array
+  const selectedObjects = shuffledArray.slice(0, 3);
+
+  return selectedObjects;
+}
 app.use("/register", require("./auth/register"));
 app.use("/login", require("./auth/login"));
 app.use("/create-blog", require("./api/create-blog"));
@@ -38,6 +56,7 @@ app.get("/account/blogs/:userId", async (req, res) => {
   console.log("here are blogs: ", userBlogs);
   res.status(200).json(userBlogs);
 });
+app;
 
 // get route to fetch all the present blogs on the database
 app.get("/blogs", async (req, res) => {

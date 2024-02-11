@@ -146,63 +146,38 @@ const Main = ({ setState }) => {
             Browse all Posts
           </button>
         </div>
+        <hr className="w-[65%] mx-auto mb-4" />
       </section>
-      <section className="mt-20  w-[65%] mx-auto ">
-        <h1 className="text-2xl font-inter font-bold">Top Authors</h1>
-        <hr className="my-4 " />
-        <div className="flex gap-6 px-4 w-full ">
-          <div className="flex gap-2 rounded-xl bg-gray-100 py-4 px-2 my-6">
-            <img
-              width={130}
-              height={120}
-              className="rounded-full"
-              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-            <div className="p-4">
-              <h1 className="font-inter font-semibold">Adrio Devid</h1>
-              <h1 className="font-inter text-sm text-gray-600">
-                Director of operations
-              </h1>
+      <section
+        className="w-full mx-auto "
+        style={{ backgroundImage: "url('src/assets/dotted.png')" }}
+      >
+        <div className="w-[65%] mx-auto p-10">
+          <div className="flex gap-6 bg-white shadow-md p-8">
+            <div className="flex flex-col gap-4 w-1/2 mr-8 p-4 ">
+              <p className="font-inter text-2xl font-bold">
+                Subscribe to Newsletter
+              </p>
+              <p className="font-inter text-sm text-gray-600">
+                Provide your email to get email notification when we launch new
+                products or publish new articles{" "}
+              </p>
             </div>
-          </div>
-          <div className="flex gap-2 rounded-xl bg-gray-100 py-4 px-2 my-6">
-            <img
-              width={130}
-              height={120}
-              className="rounded-full"
-              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-            <div className="p-4">
-              <h1 className="font-inter font-semibold">Adrio Devid</h1>
-              <h1 className="font-inter test-sm text-gray-600">
-                Director of operations
-              </h1>
-            </div>
-          </div>
-          <div className="flex gap-2 rounded-xl bg-gray-100 py-4 px-2 my-6">
-            <img
-              width={130}
-              height={120}
-              className="rounded-full"
-              src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-            <div className="p-4">
-              <h1 className="font-inter font-semibold">Adrio Devid</h1>
-              <h1 className="font-inter text-sm text-gray-600">
-                Director of operations
-              </h1>
+            <div
+              className="flex gap-4 p-8 
+              border-red"
+            >
+              <input
+                className=" px-4 py-4 font-inter border rounded-md focus:outline-none"
+                type="email"
+                placeholder="Enter your mail"
+              />
+              <button className="px-4 py-2 bg-black rounded-md text-white font-inter">
+                Subscribe
+              </button>
             </div>
           </div>
         </div>
-      </section>
-      <section
-        className="w-[60%] my-6 flex justify-center"
-        style={{
-          backgroundImage:
-            "url('https://freesvg.org/img/Prismatic-Isometric-Cube-Wireframe-Pattern-No-Background.png')",
-        }}
-      >
-        <div className="py-10 px-8">Newsletter</div>
       </section>
       <Footer />
     </div>
