@@ -1,24 +1,53 @@
-import React, { useEffect, useState } from "react";
 import Blog from "./Blog";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useState, useEffect } from "react";
 
 const Main = ({ setState }) => {
   const [data, setData] = useState([]);
+  const [randomBlogs, setRandomBlogs] = useState([]);
+  const [remainingBlogs, setRemainingBlogs] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const res = await fetch("http://localhost:5000/blogs");
       const data = await res.json();
       console.log(data);
-      setData(data);
+
+      // Shuffle the array
+      const shuffledData = shuffleArray(data);
+      console.log("I am shuffled array", shuffledData);
+
+      // Set the first three elements in randomBlogs and the rest in remainingBlogs
+      setRandomBlogs(shuffledData.slice(0, 3));
+      setRemainingBlogs(shuffledData.slice(3));
+
+      setData(remainingBlogs);
     }
     fetchData();
   }, []);
 
-  const randIdx = () => {
-    return Math.floor(Math.random() * data.length);
+  useEffect(() => {
+    console.log("I am randomBlogs array", randomBlogs);
+  }, [randomBlogs]);
+
+  // Fisher-Yates shuffle algorithm
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
   };
 
   return (
@@ -33,26 +62,24 @@ const Main = ({ setState }) => {
       >
         <div className="flex flex-col gap-4 w-[65%] mx-auto py-12">
           <div className="flex bg-white gap-4 p-4 rounded-md shadow-md shadow-gray-400">
-            <img
-              className="h-80 w-1/2 rounded-md object-cover"
-              src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-            <div className="w-1/2 px-6 py-8  flex flex-col gap-4">
+            {randomBlogs.length > 0 && (
+              <img
+                className="h-80 w-1/2 rounded-md object-cover"
+                src={randomBlogs[0].imageUrl}
+                alt="Random blog"
+              />
+            )}
+            <div className="w-1/2 px-6 py-8  flex flex-col gap-6">
               <div>
                 <span className="bg-purple-200 text-purple-700 font-inter font-semibold px-4 py-2 rounded-full">
-                  Technology
+                  {randomBlogs[0].tag}
                 </span>
               </div>
-              <h1 className="text-xl font-inter font-bold">
-                Begin here to obtain a brief summary encompassing all the
-                essential
+              <h1 className="text-3xl font-inter font-bold">
+                {randomBlogs[0].title}
               </h1>
-              <h2 className="text-sm font-inter text-gray-600 mb-6">
-                This comprehensive post serves as your cheat-sheet to swiftly
-                familiarize yourself with Ghost. Packed with crucial...
-              </h2>
               <p className="font-inter text-sm text-gray-600 ">
-                By Advid Devid | Sep 10, 2021
+                By {randomBlogs[0].author} | {randomBlogs[0].date}
               </p>
             </div>
           </div>
@@ -60,40 +87,38 @@ const Main = ({ setState }) => {
             <div className="w-1/2 flex gap-4 p-4 bg-white rounded-md shadow-md shadow-gray-400">
               <img
                 className="h-60 w-1/2 rounded-md object-cover"
-                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={randomBlogs[1].imageUrl}
               />
               <div className="w-1/2 px-3 py-6 flex flex-col gap-4">
                 <div>
                   <span className="bg-purple-200 text-purple-700 font-inter font-semibold px-4 py-2 rounded-full">
-                    Technology
+                    {randomBlogs[1].tag}
                   </span>
                 </div>
-                <h1 className="text-xl font-inter font-bold mb-6">
-                  14 Innovative Architectural Designs to Create a Vast Interior
-                  Space
+                <h1 className="text-2xl font-inter font-bold mb-6">
+                  {randomBlogs[1].title}
                 </h1>
                 <p className="font-inter text-sm text-gray-600 ">
-                  By Advid Devid | Sep 10, 2021
+                  By {randomBlogs[1].author} | {randomBlogs[1].date}
                 </p>
               </div>
             </div>
             <div className="w-1/2 flex gap-4 p-4 bg-white  rounded-md shadow-md shadow-gray-400">
               <img
                 className="h-60 w-1/2 rounded-md object-cover"
-                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={randomBlogs[2].imageUrl}
               />
               <div className="w-1/2 p-4 flex flex-col justify-between gap-4">
                 <div>
                   <span className="bg-purple-200 text-purple-700 font-inter font-semibold px-4 py-2 rounded-full">
-                    Technology
+                    {randomBlogs[2].tag}
                   </span>
                 </div>
-                <h1 className="text-xl font-inter font-bold">
-                  Traveller Visiting Ice Cave With Amazing Eye-catching view
-                  with nature
+                <h1 className="text-2xl font-inter font-bold">
+                  {randomBlogs[2].title}
                 </h1>
                 <p className="font-inter text-sm text-gray-600">
-                  By Adrio Devid | Sep 21, 2021
+                  By {randomBlogs[2].author} |{randomBlogs[2].date}
                 </p>
               </div>
             </div>
@@ -128,7 +153,7 @@ const Main = ({ setState }) => {
           </button>
         </div>
         <div className="mt-20 grid grid-cols-3 max-w-[60%] mx-auto">
-          {data.map((blog, idx) => (
+          {data.slice(0, 6).map((blog, idx) => (
             <Link to={`blogItem/${blog._id}`} key={idx}>
               <Blog
                 key={idx}
@@ -172,7 +197,7 @@ const Main = ({ setState }) => {
                 type="email"
                 placeholder="Enter your mail"
               />
-              <button className="px-4 py-2 bg-black rounded-md text-white font-inter">
+              <button className="px-4 py-2 bg-black font-bold rounded-md text-white font-inter">
                 Subscribe
               </button>
             </div>
