@@ -189,11 +189,11 @@ const Main = ({ setState }) => {
               </p>
             </div>
             <div
-              className="flex gap-4 p-8 
+              className="flex  gap-4 p-8 
               border-red"
             >
               <input
-                className=" px-4 py-4 font-inter border rounded-md focus:outline-none"
+                className=" px-4 py-4 font-inter border  rounded-md focus:outline-none"
                 type="email"
                 placeholder="Enter your mail"
               />
