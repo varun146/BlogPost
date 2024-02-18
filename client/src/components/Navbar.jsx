@@ -17,7 +17,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-[full] bg-white">
+    <div className="sticky top-0 w-[full] bg-white">
       <nav className=" w-[65%] mx-auto h-[100px]  flex items-center px-2 justify-between   py-4 text-[#202733]">
         <div className="flex items-center">
           <Link to="/">

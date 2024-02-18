@@ -8,9 +8,13 @@ const Profile = () => {
   const userId = JSON.parse(window.localStorage.getItem("user")).userId;
 
   const handleDelete = async (id) => {
+    console.log("Here is the id: ", id)
     const res = await axios.delete(`http://localhost:5000/deleteBlog/${id}`, {
       params: { blogId: id },
     });
+
+    console.log(res.data)
+
   };
 
   useEffect(() => {
@@ -52,7 +56,7 @@ const Profile = () => {
                 {blog.date}
               </h2>
               <GoTrash
-                onClick={handleDelete(blog._id)}
+                onClick={() => handleDelete(blog._id)}
                 className="cursor-pointer"
                 size={20}
               />

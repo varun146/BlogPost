@@ -99,6 +99,23 @@ app.get("/blogs/:userId", async (req, res) => {
   return res.status(200).json(blog);
 });
 
+app.delete("/deleteBlog/:id", async (req, res) => {
+  try {
+    console.log(req.params)
+    const { id } = req.params;
+    console.log("This is the blog id: ", id);
+    const response = await Blog.deleteOne({ _id: id })
+    console.log(response);
+    if (response.deletedCount === 1) {
+      return res.json({ message: "Blog deleted successfully" })
+    }
+  } catch (error) {
+    res.json({ error: error.message })
+  }
+
+
+})
+
 mongoose
   .connect(dbURL)
   .then(() =>
